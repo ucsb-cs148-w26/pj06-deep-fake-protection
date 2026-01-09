@@ -1,0 +1,4 @@
+Description: I'm Arman, I'm a third year and I took cs 156 last quarter which gave me some experience with team projects and git + version control. I first heard of protecting images against deep fakes from a data science project presentation two years ago. 
+
+Ideas: Change pixels to throw off the AI. What I'm trying to say is that we should make an effort to change the pixels that a malicious AI adversarial would use to reconstruct your face. We are not attempting to completely stop a model from generating any image, just that the generated image doesn't share a high level of resemblance to the original person. Hopefully if we are successful people will be able to freely post images of their faces without worrying that malicious actors will take their faces and ffeed it to deepfake models. 
+
