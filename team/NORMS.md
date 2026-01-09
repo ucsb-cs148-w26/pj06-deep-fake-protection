@@ -1,0 +1,1 @@
+Team norms are start and end meetings on time, complete assignments and meet commitments, and treat everyone with respect and dignity. Also, support teammates and don't throw them under the bus. Finally, acknowledge when you don't know something and ask for help.
