@@ -25,4 +25,4 @@ Sharanya: joined git, no roadblocks
 
 Rohil: Joined git, made branch for his readme, started organizing tech stack
 
-Herny: Not present
+Herny: joined git and made readme, no roadblocks
