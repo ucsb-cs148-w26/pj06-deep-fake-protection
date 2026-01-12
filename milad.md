@@ -1,0 +1,1 @@
+I'm pretty proficient in C# and .NET testing frameworks, along with C++. I also know some Python. My main idea for this project is to have a convenient and efficient way for people to protect their likeness from deepfakes.
