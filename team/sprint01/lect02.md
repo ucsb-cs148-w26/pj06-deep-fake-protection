@@ -1,4 +1,4 @@
-Project: Teaching CS148
+Project: Deepfake Protection
 
 Mentor: Self-Mentored
 
