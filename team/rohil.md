@@ -1,0 +1,2 @@
+My name is Rohil Jain. Most of my background is in game development, but I started my CS journey with web development.
+I want to develop this initially as a web service which will allow users to be protected quickly from deepfakes before they post something. Ideally, there will be no visual impact of the deepfake protection which we will implement. In terms of my vision for the future, this could maybe one day be implemented into apps like Instagram theself so that it can be run prior to posting an image directly.
