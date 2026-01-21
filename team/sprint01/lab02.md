@@ -26,7 +26,7 @@ Milad: gitignore doc
 
 Rohil: scribed scrum notes, kanban
 
-Herny: project organization, kanban, learning doc
+Henry: project organization, kanban, learning doc
 
 Sharanya: -not present-
 
