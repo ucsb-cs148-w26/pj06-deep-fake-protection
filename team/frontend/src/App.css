@@ -30,6 +30,15 @@
   opacity: 0.8;
 }
 
+.form-input {
+  width: 100%;
+  overflow: hidden;
+}
+
+.form-btn {
+  width: 100%;
+}
+
 /* Content Section */
 .content-section {
   width: 100%;

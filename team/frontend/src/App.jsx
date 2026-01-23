@@ -1,15 +1,10 @@
-import { useState } from 'react'
-import './App.css'
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <div className="landing-container">
       <header className="hero">
-        <h1 className="name">
-          Deepfake Protection
-        </h1>
+        <h1 className="name">Deepfake Protection</h1>
         <p className="subtitle">
           Upload your image to get one step closer to digital protection!
         </p>
@@ -17,7 +12,12 @@ function App() {
 
       <section className="content-section">
         <div className="button-placeholder">
-          {/* Add button component here later */}
+          <form>
+            <input type="file" id="file" name="file" className="form-input" />
+            <button type="submit" className="form-btn">
+              Upload file
+            </button>
+          </form>
         </div>
 
         <div className="guidelines-container">
@@ -32,4 +32,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
