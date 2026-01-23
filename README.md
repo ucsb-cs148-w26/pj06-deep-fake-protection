@@ -15,3 +15,5 @@ Tech Stack: (for MVP)\
 Vercel for deployment\
 Python: FastAPI, pytorch, torchattack library \
 JavaScript: React.jsx
+
+https://pj06-deep-fake-protection-git-main-mhaghighi04s-projects.vercel.app/
