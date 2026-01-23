@@ -15,10 +15,10 @@ We received a great explanation and talk-through from Gen about how the deepfake
 Project pivot:
 After understanding what is actually done by the algorithms (poisoning future data sets) and that current deepfake algorithms cannot actually be stopped by this method, we are considering a pivot. We will likely pivot toward protection for artwork via GLAZE and LPIPS as opposed to marketting the product as a protection method for Instagram posts from current deepfake algorithms.
 
-Task work: 
+Task work:
 Arman: tech stack doc, deepfake protection research from other repos
 
-Anit: leadership markdown doc
+Anit: learning doc
 
 John: license markdown doc, mapped system design
 
@@ -26,7 +26,7 @@ Milad: gitignore doc
 
 Rohil: scribed scrum notes, kanban
 
-Henry: project organization, kanban, learning doc
+Herny: project organization, kanban, leadership doc
 
 Sharanya: -not present-
 
