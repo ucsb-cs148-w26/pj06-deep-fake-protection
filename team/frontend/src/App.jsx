@@ -1,24 +1,98 @@
-import { useState } from "react";
 import "./App.css";
+import { useState } from "react";
 
 function App() {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [fileName, setFileName] = useState("");
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [fileName, setFileName] = useState("");
+  const [isDragOver, setIsDragOver] = useState(false);
+  
+  // State for error messages
+  const [errorMessage, setErrorMessage] = useState("");
+
+  // Process file with validation (shared by input and drag-drop)
+  const processFile = (file, inputElement = null) => {
+    setErrorMessage(""); // Reset error on new attempt
+
     if (file) {
-      setSelectedFile(file);
-      setFileName(file.name);
+      // Check if the MIME type is NOT jpeg
+      if (file.type !== "image/jpeg") {
+        setErrorMessage("Invalid file type. Please upload a JPEG image.");
+        setSelectedFile(null);
+        setFileName("");
+        if (inputElement) inputElement.value = "";
+      } else {
+        // File is valid
+        setSelectedFile(file);
+        setFileName(file.name);
+      }
     }
   };
 
-  const handleSubmit = (e) => {
+  // Handle file selection from input
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    processFile(file, e.target);
+  };
+
+  // Drag and drop event handlers
+  const handleDragEnter = (e) => {
     e.preventDefault();
-    if (selectedFile) {
-      // Handle file upload here
-      console.log("Uploading file:", selectedFile);
+    e.stopPropagation();
+    setIsDragOver(true);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    // Only set false if we're actually leaving the drop zone
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      setIsDragOver(false);
     }
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragOver(false);
+
+    const files = e.dataTransfer.files;
+    if (files && files.length > 0) {
+      processFile(files[0]);
+    }
+  };
+
+  // 3. Intercept the "Upload" button click
+  const handleUploadClick = (e) => {
+    e.preventDefault(); // Stop form submission
+    
+    // Check if a file is selected (this will be null if validation failed)
+    if (!selectedFile) {
+      alert("Please select a valid JPEG file first!");
+      return;
+    }
+
+    // Open the confirmation modal
+    setShowModal(true);
+  };
+
+  // 4. Final action if user says "Yes"
+  const handleConfirmUpload = () => {
+    setShowModal(false);
+    
+    // --- UPLOAD LOGIC GOES HERE ---
+    console.log("Uploading file:", selectedFile.name);
+    alert("Upload Successful!");
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -31,13 +105,19 @@ function App() {
       </header>
 
       <section className="content-section">
-        <form onSubmit={handleSubmit} className="upload-form">
-          <div className="upload-area">
+        <form onSubmit={(e) => { e.preventDefault(); handleUploadClick(e); }} className="upload-form">
+          <div 
+            className={`upload-area ${isDragOver ? 'drag-over' : ''}`}
+            onDragEnter={handleDragEnter}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+          >
             <input
               type="file"
               id="file-upload"
               name="file"
-              accept="image/jpeg,image/jpg,image/png"
+              accept="image/jpeg"
               onChange={handleFileChange}
               className="file-input"
             />
@@ -60,10 +140,10 @@ function App() {
               </div>
               <div className="upload-text">
                 <span className="upload-primary">
-                  Drag and drop your image here, or click to browse
+                  {isDragOver ? 'Drop your image here' : 'Drag and drop your image here, or click to browse'}
                 </span>
                 <span className="upload-secondary">
-                  Supports JPG and PNG image formats
+                  Supports JPEG image format only
                 </span>
               </div>
             </label>
@@ -73,6 +153,14 @@ function App() {
               </div>
             )}
           </div>
+          
+          {/* Error Message Display */}
+          {errorMessage && (
+            <div className="error-message">
+              {errorMessage}
+            </div>
+          )}
+          
           {selectedFile && (
             <button type="submit" className="upload-btn">
               Process Image
@@ -88,6 +176,25 @@ function App() {
           />
         </div>
       </section>
+
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h3>Final Confirmation</h3>
+            <p>
+              Does your image follow the guidelines listed on the page?
+            </p>
+            <div className="modal-actions">
+              <button className="modal-btn cancel" onClick={handleCloseModal}>
+                No, Go Back
+              </button>
+              <button className="modal-btn confirm" onClick={handleConfirmUpload}>
+                Yes, Upload
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
