@@ -3,40 +3,82 @@ import torchvision.models as models
 import torchvision.transforms as transforms
 from PIL import Image
 import torchattacks
-import matplotlib.pyplot as plt
 
-# 1. Setup the dummy model
-model = models.resnet18(pretrained=True).eval()
+# Global model instance (loaded once for efficiency)
+_model = None
 
-# 2. Load and preprocess your local image
-img_path = "/Users/arman/Desktop/download.jpeg"  # Replace with your file path
-image = Image.open(img_path).convert('RGB')
+def get_model():
+    """Get or create the ResNet18 model (singleton pattern)"""
+    global _model
+    if _model is None:
+        _model = models.resnet18(pretrained=True).eval()
+    return _model
 
-preprocess = transforms.Compose([
-    transforms.Resize((224, 224)),
-    transforms.ToTensor(), # Scales pixels to [0, 1]
-])
+def apply_pgd_masking(image_file, eps=8/255, alpha=2/255, steps=10):
+    """
+    Apply PGD (Projected Gradient Descent) adversarial masking to protect against deepfakes.
+    
+    Args:
+        image_file: File-like object or path to image file
+        eps: Maximum perturbation (default: 8/255, standard 'invisible' noise level)
+        alpha: Step size (default: 2/255)
+        steps: Number of iterations (default: 10)
+    
+    Returns:
+        PIL Image: Protected/masked image
+    """
+    # Load model
+    model = get_model()
+    
+    # Load and preprocess the image
+    if isinstance(image_file, str):
+        image = Image.open(image_file).convert('RGB')
+    else:
+        image = Image.open(image_file).convert('RGB')
+    
+    preprocess = transforms.Compose([
+        transforms.Resize((224, 224)),
+        transforms.ToTensor(),  # Scales pixels to [0, 1]
+    ])
+    
+    img_tensor = preprocess(image).unsqueeze(0)  # Add batch dimension
+    
+    # Define and run the PGD attack
+    atk = torchattacks.PGD(model, eps=eps, alpha=alpha, steps=steps)
+    
+    # Get model prediction to use as target
+    outputs = model(img_tensor)
+    _, labels = torch.max(outputs.data, 1)
+    
+    # Generate the masked image
+    masked_tensor = atk(img_tensor, labels)
+    
+    # Convert back to PIL Image
+    masked_image = transforms.ToPILImage()(masked_tensor.squeeze().clamp(0, 1))
+    
+    return masked_image
 
-img_tensor = preprocess(image).unsqueeze(0) # Add batch dimension
 
-# 3. Define and run the PGD attack
-# eps=8/255 is the standard 'invisible' noise level
-atk = torchattacks.PGD(model, eps=8/255, alpha=2/255, steps=10)
-
-# PGD technically needs a 'target' label to move away from
-# We'll just use the model's current prediction as the starting point
-outputs = model(img_tensor)
-_, labels = torch.max(outputs.data, 1)
-
-# Generate the masked image
-masked_image = atk(img_tensor, labels)
-
-# 4. Display Results
-def show(t):
-    plt.imshow(t.squeeze().permute(1, 2, 0).detach().numpy())
+# For backward compatibility - can still run as script
+if __name__ == "__main__":
+    import matplotlib.pyplot as plt
+    
+    # Example usage
+    img_path = "/Users/arman/Desktop/download.jpeg"  # Replace with your file path
+    original_image = Image.open(img_path).convert('RGB')
+    
+    # Apply masking
+    masked_image = apply_pgd_masking(img_path)
+    
+    # Display Results
+    plt.figure(figsize=(10, 5))
+    plt.subplot(1, 2, 1)
+    plt.imshow(original_image)
     plt.axis('off')
-
-plt.figure(figsize=(10, 5))
-plt.subplot(1, 2, 1); show(img_tensor); plt.title("Original Image")
-plt.subplot(1, 2, 2); show(masked_image); plt.title("PGD Masked Image")
-plt.show()
+    plt.title("Original Image")
+    
+    plt.subplot(1, 2, 2)
+    plt.imshow(masked_image)
+    plt.axis('off')
+    plt.title("PGD Masked Image")
+    plt.show()

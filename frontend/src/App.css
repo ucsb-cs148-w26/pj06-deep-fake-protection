@@ -167,6 +167,18 @@
   transform: translateY(0);
 }
 
+.upload-btn:disabled {
+  background: #666;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.upload-btn:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
 /* Guidelines */
 .guidelines-container h2 {
   margin-bottom: 10px;

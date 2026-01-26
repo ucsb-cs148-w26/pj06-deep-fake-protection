@@ -3,10 +3,11 @@ import { useState } from "react";
 
 function App() {
 
-  const [selectedFile, setSelectedFile] = useState(null); 
+  const [selectedFile, setSelectedFile] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [fileName, setFileName] = useState("");
   const [isDragOver, setIsDragOver] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
   
   // State for error messages
   const [errorMessage, setErrorMessage] = useState("");
@@ -83,12 +84,55 @@ function App() {
   };
 
   // 4. Final action if user says "Yes"
-  const handleConfirmUpload = () => {
+  const handleConfirmUpload = async () => {
     setShowModal(false);
     
-    // --- UPLOAD LOGIC GOES HERE ---
-    console.log("Uploading file:", selectedFile.name);
-    alert("Upload Successful!");
+    if (!selectedFile) return;
+    
+    setIsProcessing(true);
+    setErrorMessage("");
+    
+    try {
+      // Create FormData to send file to backend
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+      
+      // Send to FastAPI backend
+      const response = await fetch('http://localhost:8000/process-image', {
+        method: 'POST',
+        body: formData,
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ detail: `Server error: ${response.status}` }));
+        throw new Error(errorData.detail || `Server error: ${response.status}`);
+      }
+      
+      // Get the protected image as a blob
+      const blob = await response.blob();
+      
+      // Create download link for the protected image
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `protected_${selectedFile.name}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      
+      alert("Success! Your protected image has been downloaded.");
+      
+      // Reset form
+      setSelectedFile(null);
+      setFileName("");
+      
+    } catch (error) {
+      console.error('Upload failed:', error);
+      setErrorMessage(error.message || 'Failed to process image. Please try again.');
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   const handleCloseModal = () => {
@@ -162,8 +206,12 @@ function App() {
           )}
           
           {selectedFile && (
-            <button type="submit" className="upload-btn">
-              Process Image
+            <button 
+              type="submit" 
+              className="upload-btn"
+              disabled={isProcessing}
+            >
+              {isProcessing ? "Processing..." : "Process Image"}
             </button>
           )}
         </form>
