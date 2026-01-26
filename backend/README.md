@@ -12,7 +12,7 @@ pip install -r requirements.txt
 
 2. **Run the FastAPI server:**
 ```bash
-python main.py
+python app.py
 ```
 The API will be available at `http://localhost:8000`
 
