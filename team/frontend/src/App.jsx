@@ -5,25 +5,66 @@ function App() {
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [fileName, setFileName] = useState("");
+  const [isDragOver, setIsDragOver] = useState(false);
   
-  // 1. NEW: State for error messages
+  // State for error messages
   const [errorMessage, setErrorMessage] = useState("");
 
-  // 2. UPDATED: Track file selection with validation
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
+  // Process file with validation (shared by input and drag-drop)
+  const processFile = (file, inputElement = null) => {
     setErrorMessage(""); // Reset error on new attempt
 
     if (file) {
       // Check if the MIME type is NOT jpeg
       if (file.type !== "image/jpeg") {
         setErrorMessage("Invalid file type. Please upload a JPEG image.");
-        setSelectedFile(null); // Clear the stored file so they can't upload it
-        e.target.value = "";   // Reset the input field visual
+        setSelectedFile(null);
+        setFileName("");
+        if (inputElement) inputElement.value = "";
       } else {
         // File is valid
         setSelectedFile(file);
+        setFileName(file.name);
       }
+    }
+  };
+
+  // Handle file selection from input
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    processFile(file, e.target);
+  };
+
+  // Drag and drop event handlers
+  const handleDragEnter = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragOver(true);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    // Only set false if we're actually leaving the drop zone
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      setIsDragOver(false);
+    }
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragOver(false);
+
+    const files = e.dataTransfer.files;
+    if (files && files.length > 0) {
+      processFile(files[0]);
     }
   };
 
@@ -64,29 +105,68 @@ function App() {
       </header>
 
       <section className="content-section">
-        <div className="button-placeholder">
-          <form>
-            <input 
-              type="file" 
-              id="file" 
-              name="file" 
-              className="form-input" 
-              accept="image/jpeg"           // 5. NEW: Browser filter
-              onChange={handleFileChange} 
+        <form onSubmit={(e) => { e.preventDefault(); handleUploadClick(e); }} className="upload-form">
+          <div 
+            className={`upload-area ${isDragOver ? 'drag-over' : ''}`}
+            onDragEnter={handleDragEnter}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+          >
+            <input
+              type="file"
+              id="file-upload"
+              name="file"
+              accept="image/jpeg"
+              onChange={handleFileChange}
+              className="file-input"
             />
-            
-            {/* 6. NEW: Error Message Display */}
-            {errorMessage && (
-              <p style={{ color: "#ff4d4d", marginTop: "0.5rem", fontSize: "0.9rem" }}>
-                {errorMessage}
-              </p>
+            <label htmlFor="file-upload" className="upload-label">
+              <div className="upload-icon">
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+              </div>
+              <div className="upload-text">
+                <span className="upload-primary">
+                  {isDragOver ? 'Drop your image here' : 'Drag and drop your image here, or click to browse'}
+                </span>
+                <span className="upload-secondary">
+                  Supports JPEG image format only
+                </span>
+              </div>
+            </label>
+            {fileName && (
+              <div className="file-selected">
+                <span className="file-name">✓ {fileName}</span>
+              </div>
             )}
-
-            <button type="submit" className="form-btn" onClick={handleUploadClick}>
-              Upload file
+          </div>
+          
+          {/* Error Message Display */}
+          {errorMessage && (
+            <div className="error-message">
+              {errorMessage}
+            </div>
+          )}
+          
+          {selectedFile && (
+            <button type="submit" className="upload-btn">
+              Process Image
             </button>
-          </form>
-        </div>
+          )}
+        </form>
 
         <div className="guidelines-container">
           <h2>Upload guidelines</h2>
