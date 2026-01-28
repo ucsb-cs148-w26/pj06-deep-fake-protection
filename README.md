@@ -1,4 +1,4 @@
-Deep Fake Protection
+## Deep Fake Protection
 
 Create an app that will take a user's photo and make small changes to it such that a malicious third party cannot make a deep fake on it.
 
@@ -11,10 +11,9 @@ Srish Nigam: EpicSRN021\
 Sharanya Gehlot: sharanya444\
 Henry Bartz: Bartz36\
 
-Tech Stack: (for MVP)\
-Vercel for deployment\
-Python: FastAPI, pytorch, torchattack library \
-JavaScript: React.jsx
+## Tech Stack
+
+Our project uses a React frontend (bundled with Vite) that talks to a FastAPI backend written in Python, where we load a PyTorch model and apply adversarial masking using the `torchattacks` library; this combination lets us build a responsive, modern UI while offloading the heavy image-processing work to a scalable API layer. We plan to deploy the frontend and backend using Vercel and/or similar cloud infrastructure, so teammates can iterate quickly on the UI while others experiment with different masking algorithms behind a stable HTTP interface. This setup gives us a clear separation of concerns—frontend handles user interaction and upload flow, backend focuses on ML and security logic—making it easier to swap in new models or masking strategies as we refine our deepfake protection approach.
 
 https://pj06-deep-fake-protection-git-main-mhaghighi04s-projects.vercel.app/
 
@@ -32,7 +31,7 @@ A browser and search engine of chocie
 
 Dependencies
 
-React for frontend, FastAPI for creating a backend endpoint, Torch Attack for adding adversarial noise to images, pytorch to implement Torch Attack, Vercel to deploy our app
+React for the frontend, FastAPI for the backend API, PyTorch and `torchattacks` for generating adversarial noise on images, and Vercel (or similar) to deploy our app.
 
 Installation Steps
 
