@@ -2,7 +2,7 @@ Project: Deepfake Protection
 
 Mentor: Self-Mentored
 
-Meeting Time: lab02
+Meeting Time: lect04
 
 Type of meeting: sprint planning and daily scrum <one or several of [sprint planning, daily scrum, sprint review, retrospective, story time]>
 
@@ -14,7 +14,7 @@ We discussed new libraries which we had found and shared over the weekend. Since
 Project pivot:
 Final decided pivot is that we are moving to artwork protection.
 
-Task work: 
+Task work:
 Arman: Continued library research and will be implementing a protection masking method with noise to see its efficacy.
 
 Anit: Learning.md work
