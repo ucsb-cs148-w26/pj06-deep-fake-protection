@@ -2,7 +2,7 @@ Project: Deepfake Protection
 
 Mentor: Self-Mentored
 
-Meeting Time: lab03
+Meeting Time: lect05
 
 Type of meeting: sprint planning and daily scrum <one or several of [sprint planning, daily scrum, sprint review, retrospective, story time]>
 
@@ -11,7 +11,7 @@ Attendance: Rohil Jain [x], Milad Haghighi [x], Anit Annadi [x], Srish Nigam [],
 Scribed Discussion:
 We discussed the procedures we would need to take to connect the frontend to the backend. We also mentioned how we need to be a big more attentive of others PRs so we can quickly merge code.
 
-Task work: 
+Task work:
 Arman: Researching FGSM masking algorithm
 
 Anit: Researching BIM masking algorithm, next retro leader
