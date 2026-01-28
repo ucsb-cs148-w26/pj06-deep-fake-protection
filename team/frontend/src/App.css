@@ -1,5 +1,5 @@
 .landing-container {
-  height: 100vh;
+  height: auto;
   width: 100vw;
   background: #0a0a0f;
   color: #e6e6e6;
@@ -9,6 +9,7 @@
   align-items: center;
   box-sizing: border-box;
 }
+
 
 /* Hero Section */
 .hero {
@@ -34,6 +35,12 @@
 .content-section {
   width: 100%;
   max-width: 700px;
+}
+
+/*Prevent scrolling bars because they look bad and mess up the width */
+body::-webkit-scrollbar {
+  display: none;
+  overflow-y: scroll; 
 }
 
 /* Upload Form */

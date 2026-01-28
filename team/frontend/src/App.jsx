@@ -1,5 +1,6 @@
 import "./App.css";
 import { useState } from "react";
+import UploadGuidelines from "../FileUploadGuidelines";
 
 function App() {
 
@@ -170,10 +171,7 @@ function App() {
 
         <div className="guidelines-container">
           <h2>Upload guidelines</h2>
-          <textarea
-            className="guidelines-textarea"
-            placeholder=" " //Add guidelines here later
-          />
+          <UploadGuidelines/>
         </div>
       </section>
 
