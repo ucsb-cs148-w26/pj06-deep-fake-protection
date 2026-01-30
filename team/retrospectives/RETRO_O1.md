@@ -1,4 +1,4 @@
-# Date of Retrospective: 01/24/25
+# Date of Retrospective: 01/23/25
 
 - Led by: Henry
 - Present: Arman, Rohil, Sharanya, Anit, Milad, John
