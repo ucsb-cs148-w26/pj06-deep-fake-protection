@@ -3,5 +3,5 @@ uvicorn[standard]
 python-multipart
 torch
 torchvision
-torchattacks==3.4.0
-pillow==10.0.1
+torchattacks
+pillow
