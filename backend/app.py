@@ -15,7 +15,7 @@ app = FastAPI(title="Deepfake Protection API")
 # Add CORS middleware to allow frontend requests
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://pj06-deep-fake-protection-blush.vercel.app/", "http://localhost:5173", "http://localhost:5174", "http://localhost:3000"],  # Vite and other dev servers
+    allow_origins=["https://pj06-deep-fake-protection-blush.vercel.app", "http://localhost:5173", "http://localhost:5174", "http://localhost:3000"],  # Vite and other dev servers
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
