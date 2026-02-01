@@ -14,7 +14,7 @@ def get_model():
         _model = models.resnet18(pretrained=True).eval()
     return _model
 
-def apply_pgd_masking(image_file, eps=8/255, alpha=2/255, steps=10):
+def apply_pgd_masking(image_file, eps=8/255, alpha=2/255, steps=2):
     """
     Apply PGD (Projected Gradient Descent) adversarial masking to protect against deepfakes.
     
