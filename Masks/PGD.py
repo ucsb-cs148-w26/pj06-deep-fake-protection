@@ -20,7 +20,7 @@ def get_model():
         _model = models.resnet18(weights=ResNet18_Weights.DEFAULT).eval()
     return _model
 
-def apply_pgd_masking(image_file, eps=8/255, alpha=2/255, steps=10):
+def apply_pgd_masking(image_file, eps=8/255, alpha=2/255, steps=2):
     """
     Apply PGD adversarial masking to protect against deepfakes.
     """
