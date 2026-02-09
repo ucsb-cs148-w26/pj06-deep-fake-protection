@@ -59,7 +59,7 @@ Implement low/medium/high masking strengths
 Show quality vs. protection tradeoff
 Test effectiveness of each level
 
-Medium-term Goals (Sprint 3+)
+Medium-term Goals
 7. UI/UX Redesign
 Add color and visual appeal
 Include shield/protection iconography
