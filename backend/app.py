@@ -8,14 +8,14 @@ import io
 # Add parent directory to path to import Masks module
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from Masks.PGD import apply_pgd_masking
+from Masks.Gauss import apply_gauss
 
 app = FastAPI(title="Deepfake Protection API")
 
 # Add CORS middleware to allow frontend requests
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:5174", "http://localhost:3000"],  # Vite and other dev servers
+    allow_origins=["https://pj06-deep-fake-protection-blush.vercel.app", "http://localhost:5173", "http://localhost:5174", "http://localhost:3000"],  # Vite and other dev servers
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -39,7 +39,7 @@ async def process_image(file: UploadFile = File(...)):
     
     try:
         # Apply PGD masking (can easily switch to other algorithms here)
-        masked_image = apply_pgd_masking(file.file)
+        masked_image = apply_gauss(file.file)
         
         # Convert to bytes for response
         img_buffer = io.BytesIO()

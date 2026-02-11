@@ -99,7 +99,7 @@ function App() {
       formData.append('file', selectedFile);
       
       // Send to FastAPI backend
-      const response = await fetch('http://localhost:8000/process-image', {
+      const response = await fetch('https://pj06-deep-fake-protection.onrender.com/process-image', {
         method: 'POST',
         body: formData,
       });
