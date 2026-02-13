@@ -17,3 +17,10 @@
 | Fri 01/23 | Henry   | led the retro |
 | Mon 01/26 | Milad  | Wrote the scrum notes             |
 | Wed 01/28 | Anit   | Wrote the scrum notes             |
+| Fri 01/30 | Milad  | Wrote the scrum notes             |
+| Mon 02/02 | Srish  | Wrote the scrum notes             |
+| Wed 02/04 | John   | Wrote the scrum notes             |
+| Fri 02/07 | Sharanya   | Wrote the scrum notes             |
+| Mon 02/09 | Sharanya   | Wrote the scrum notes             |
+| Wed 02/11 | Rohil   | Wrote the scrum notes             |
+
