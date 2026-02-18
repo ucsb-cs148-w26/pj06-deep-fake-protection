@@ -23,4 +23,5 @@
 | Fri 02/07 | Sharanya   | Wrote the scrum notes             |
 | Mon 02/09 | Sharanya   | Wrote the scrum notes             |
 | Wed 02/11 | Rohil   | Wrote the scrum notes             |
+| Wed 02/18 | Arman  | wrote the scrum notes             |
 
