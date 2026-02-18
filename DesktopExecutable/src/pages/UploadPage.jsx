@@ -85,6 +85,8 @@ function UploadPage() {
           originalBuffer={file?.buffer}
           protectedBuffer={result.buffer}
           fileName={file?.name}
+          psnr={result.psnr}
+          similarity={result.similarity}
           onSaveToLibrary={handleSaveToLibrary}
           onExport={handleExport}
           onProcessAnother={handleProcessAnother}

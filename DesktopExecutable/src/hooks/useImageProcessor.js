@@ -19,6 +19,8 @@ export function useImageProcessor() {
         buffer: response.buffer,
         width: response.width,
         height: response.height,
+        psnr: response.psnr,
+        similarity: response.similarity,
       });
     } catch (err) {
       setError(err.message || 'Failed to process image');
