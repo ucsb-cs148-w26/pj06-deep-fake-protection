@@ -5,3 +5,4 @@ torch
 torchvision
 torchattacks
 pillow
+pytest

@@ -1,17 +1,29 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useCallback, useRef } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 import UploadGuidelines from "../FileUploadGuidelines";
+
+// Get your own keys at https://www.google.com/recaptcha/admin (reCAPTCHA v2 "I'm not a robot")
+const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
 
 function App() {
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showCaptcha, setShowCaptcha] = useState(false);
+  const [captchaError, setCaptchaError] = useState("");
   const [fileName, setFileName] = useState("");
   const [isDragOver, setIsDragOver] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
-  
+  const recaptchaRef = useRef(null);
+
   // State for error messages
   const [errorMessage, setErrorMessage] = useState("");
+
+  const startCaptcha = useCallback(() => {
+    setCaptchaError("");
+    setShowCaptcha(true);
+  }, []);
 
   // Process file with validation (shared by input and drag-drop)
   const processFile = (file, inputElement = null) => {
@@ -84,9 +96,28 @@ function App() {
     setShowModal(true);
   };
 
-  // 4. Final action if user says "Yes"
+  const handleYesUploadClick = () => {
+    startCaptcha();
+  };
+
+  const handleRecaptchaVerify = useCallback((token) => {
+    if (token) {
+      setShowCaptcha(false);
+      setCaptchaError("");
+      recaptchaRef.current?.reset();
+      handleConfirmUpload();
+    }
+  }, []);
+
+  const handleRecaptchaExpired = useCallback(() => {
+    setCaptchaError("Verification expired. Please complete the captcha again.");
+    recaptchaRef.current?.reset();
+  }, []);
+
+  // 4. Final action if user says "Yes" (after captcha pass)
   const handleConfirmUpload = async () => {
     setShowModal(false);
+    setShowCaptcha(false);
     
     if (!selectedFile) return;
     
@@ -138,6 +169,9 @@ function App() {
 
   const handleCloseModal = () => {
     setShowModal(false);
+    setShowCaptcha(false);
+    setCaptchaError("");
+    recaptchaRef.current?.reset();
   };
 
   return (
@@ -226,18 +260,42 @@ function App() {
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h3>Final Confirmation</h3>
-            <p>
-              Does your image follow the guidelines listed on the page?
-            </p>
-            <div className="modal-actions">
-              <button className="modal-btn cancel" onClick={handleCloseModal}>
-                No, Go Back
-              </button>
-              <button className="modal-btn confirm" onClick={handleConfirmUpload}>
-                Yes, Upload
-              </button>
-            </div>
+            {showCaptcha ? (
+              <>
+                <h3>Verify you're human</h3>
+                <p className="captcha-hint">Complete the captcha below to continue.</p>
+                <div className="recaptcha-wrapper">
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={RECAPTCHA_SITE_KEY}
+                    onChange={handleRecaptchaVerify}
+                    onExpired={handleRecaptchaExpired}
+                    theme="light"
+                  />
+                </div>
+                {captchaError && <p className="captcha-error">{captchaError}</p>}
+                <div className="modal-actions">
+                  <button className="modal-btn cancel" onClick={handleCloseModal}>
+                    Cancel
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <h3>Final Confirmation</h3>
+                <p>
+                  Does your image follow the guidelines listed on the page?
+                </p>
+                <div className="modal-actions">
+                  <button className="modal-btn cancel" onClick={handleCloseModal}>
+                    No, Go Back
+                  </button>
+                  <button className="modal-btn confirm" onClick={handleYesUploadClick}>
+                    Yes, Upload
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}

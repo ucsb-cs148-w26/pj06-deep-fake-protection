@@ -268,3 +268,22 @@ body::-webkit-scrollbar {
   background-color: #dc3545;
   color: white;
 }
+
+.captcha-hint {
+  margin: 10px 0 15px;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.recaptcha-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+  min-height: 78px;
+}
+
+.captcha-error {
+  color: #dc3545;
+  font-size: 0.9rem;
+  margin: 0 0 10px;
+}
