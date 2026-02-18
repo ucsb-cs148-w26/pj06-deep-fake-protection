@@ -23,5 +23,5 @@
 | Fri 02/07 | Sharanya | Wrote the scrum notes             |
 | Mon 02/09 | Sharanya | Wrote the scrum notes             |
 | Wed 02/11 | Rohil    | Wrote the scrum notes             |
-| Wed 02/13 | Anit     | Led the retro                     |
+| Fri 02/13 | Anit     | Led the retro                     |
 | Wed 02/18 | Arman    | Wrote the scrum notes             |
