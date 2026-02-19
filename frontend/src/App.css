@@ -1,7 +1,7 @@
 .landing-container {
   height: auto;
   width: 100vw;
-  background: #0a0a0f;
+  background: linear-gradient(135deg, #0d1231 0%, #1a1f39 50%, #1d1628 100%);
   color: #e6e6e6;
   font-family: "Inter", sans-serif;
   display: flex;
@@ -10,10 +10,46 @@
   box-sizing: border-box;
 }
 
+/* Navigation Bar */
+.top-nav {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 16px 32px;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgba(0, 234, 255, 0.1);
+  background: linear-gradient(135deg, #0d1231 0%, #1a1f39 50%, #1d1628 100%);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.nav-link-btn {
+  padding: 8px 20px;
+  background: transparent;
+  border: 1px solid rgba(0, 234, 255, 0.4);
+  border-radius: 8px;
+  color: #00eaff;
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.5px;
+}
+
+.nav-link-btn:hover {
+  background: rgba(0, 234, 255, 0.1);
+  border-color: #00eaff;
+  box-shadow: 0 0 12px rgba(0, 234, 255, 0.2);
+}
 
 /* Hero Section */
 .hero {
   text-align: center;
+  margin-top: 60px;
   margin-bottom: 60px;
 }
 
