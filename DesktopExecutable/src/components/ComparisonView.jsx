@@ -4,6 +4,8 @@ function ComparisonView({
   originalBuffer,
   protectedBuffer,
   fileName,
+  psnr,
+  similarity,
   onSaveToLibrary,
   onExport,
   onProcessAnother,
@@ -45,6 +47,27 @@ function ComparisonView({
           </div>
         </div>
       </div>
+
+      {similarity != null && psnr != null && (
+        <div className="similarity-panel">
+          <div className="similarity-stat">
+            <span className="similarity-label">Visual Similarity</span>
+            <span className="similarity-value">{similarity.toFixed(1)}%</span>
+          </div>
+          <div className="similarity-divider" />
+          <div className="similarity-stat">
+            <span className="similarity-label">PSNR</span>
+            <span className="similarity-value">{psnr.toFixed(1)} dB</span>
+          </div>
+          <div className="similarity-divider" />
+          <div className="similarity-stat">
+            <span className="similarity-label">Imperceptibility</span>
+            <span className={`similarity-badge ${similarity >= 99 ? 'excellent' : similarity >= 97 ? 'good' : 'moderate'}`}>
+              {similarity >= 99 ? 'Excellent' : similarity >= 97 ? 'Good' : 'Moderate'}
+            </span>
+          </div>
+        </div>
+      )}
 
       <div className="comparison-actions">
         <button className="btn btn-primary" onClick={onSaveToLibrary}>

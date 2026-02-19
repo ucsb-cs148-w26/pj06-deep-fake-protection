@@ -100,6 +100,35 @@ async function applyJpegPoisoning(image) {
 }
 
 /**
+ * Compute PSNR and a human-readable visual similarity % between two RGBA bitmaps.
+ * Only RGB channels are compared (alpha is ignored).
+ */
+function computeSimilarity(originalData, processedData) {
+  let mse = 0;
+  let count = 0;
+  const len = Math.min(originalData.length, processedData.length);
+
+  for (let i = 0; i < len; i += 4) {
+    for (let c = 0; c < 3; c++) {
+      const diff = originalData[i + c] - processedData[i + c];
+      mse += diff * diff;
+      count++;
+    }
+  }
+
+  mse /= count;
+  const rmse = Math.sqrt(mse);
+  const psnr = mse === 0 ? 100 : 20 * Math.log10(255 / rmse);
+  // Map RMSE (0–255) to similarity (100%–0%). Small RMSE → high similarity.
+  const similarity = Math.max(0, (1 - rmse / 255) * 100);
+
+  return {
+    psnr: Math.round(psnr * 10) / 10,
+    similarity: Math.round(similarity * 10) / 10,
+  };
+}
+
+/**
  * Process an image with the specified protection level (1-5).
  *
  * Level 1 (Subtle):   Light Gaussian noise (0.02)
@@ -114,6 +143,9 @@ async function processImage(inputBuffer, protectionLevel) {
   const image = await Jimp.read(Buffer.from(inputBuffer));
   const { width, height } = image.bitmap;
   const bitmap = image.bitmap.data;
+
+  // Snapshot original pixel data before any modifications
+  const originalData = Buffer.from(bitmap);
 
   // Apply noise layers based on protection level
   const gaussianStrengths = { 1: 0.02, 2: 0.04, 3: 0.03, 4: 0.03, 5: 0.04 };
@@ -133,10 +165,13 @@ async function processImage(inputBuffer, protectionLevel) {
     await applyJpegPoisoning(image);
   }
 
+  // Compute similarity between original and processed pixel data
+  const { psnr, similarity } = computeSimilarity(originalData, image.bitmap.data);
+
   // Encode back to JPEG at high quality
   const outputBuffer = await image.getBuffer('image/jpeg', { quality: 95 });
 
-  return { outputBuffer, width, height };
+  return { outputBuffer, width, height, psnr, similarity };
 }
 
 module.exports = { processImage };

@@ -18,7 +18,7 @@ function registerIpcHandlers() {
   // --- Image Processing ---
   ipcMain.handle('image:process', async (_event, imageArrayBuffer, level) => {
     const inputBuffer = Buffer.from(imageArrayBuffer);
-    const { outputBuffer, width, height } = await processImage(inputBuffer, level);
+    const { outputBuffer, width, height, psnr, similarity } = await processImage(inputBuffer, level);
     return {
       buffer: outputBuffer.buffer.slice(
         outputBuffer.byteOffset,
@@ -26,6 +26,8 @@ function registerIpcHandlers() {
       ),
       width,
       height,
+      psnr,
+      similarity,
     };
   });
 

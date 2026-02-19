@@ -391,6 +391,70 @@ body {
   display: block;
 }
 
+/* Similarity Score Panel */
+.similarity-panel {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-top: 16px;
+  background: #11131a;
+  border: 1px solid #1a1d28;
+  border-radius: 10px;
+  padding: 14px 24px;
+}
+
+.similarity-stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.similarity-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #555;
+}
+
+.similarity-value {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #00eaff;
+  font-variant-numeric: tabular-nums;
+}
+
+.similarity-divider {
+  width: 1px;
+  height: 36px;
+  background: #1a1d28;
+  flex-shrink: 0;
+}
+
+.similarity-badge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 3px 12px;
+  border-radius: 20px;
+}
+
+.similarity-badge.excellent {
+  background: rgba(0, 234, 100, 0.12);
+  color: #00ea64;
+}
+
+.similarity-badge.good {
+  background: rgba(0, 234, 255, 0.12);
+  color: #00eaff;
+}
+
+.similarity-badge.moderate {
+  background: rgba(255, 180, 0, 0.12);
+  color: #ffb400;
+}
+
 .comparison-actions {
   display: flex;
   gap: 12px;
