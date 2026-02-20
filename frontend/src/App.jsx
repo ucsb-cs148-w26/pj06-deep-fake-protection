@@ -2,12 +2,12 @@ import "./App.css";
 import { useState, useCallback, useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import UploadGuidelines from "../FileUploadGuidelines";
+import HowItWorks from "./HowItWorks.jsx";
 
-// Get your own keys at https://www.google.com/recaptcha/admin (reCAPTCHA v2 "I'm not a robot")
 const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
 
 function App() {
-
+  const [currentPage, setCurrentPage] = useState("home");
   const [selectedFile, setSelectedFile] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [showCaptcha, setShowCaptcha] = useState(false);
@@ -15,20 +15,35 @@ function App() {
   const [fileName, setFileName] = useState("");
   const [isDragOver, setIsDragOver] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
-  const recaptchaRef = useRef(null);
-
-  // State for error messages
   const [errorMessage, setErrorMessage] = useState("");
+  const recaptchaRef = useRef(null);
 
   const startCaptcha = useCallback(() => {
     setCaptchaError("");
     setShowCaptcha(true);
   }, []);
 
-  // Process file with validation (shared by input and drag-drop)
-  const processFile = (file, inputElement = null) => {
-    setErrorMessage(""); // Reset error on new attempt
+  const handleRecaptchaVerify = useCallback((token) => {
+    if (token) {
+      setShowCaptcha(false);
+      setCaptchaError("");
+      recaptchaRef.current?.reset();
+      handleConfirmUpload();
+    }
+  }, []);
 
+  const handleRecaptchaExpired = useCallback(() => {
+    setCaptchaError("Verification expired. Please complete the captcha again.");
+    recaptchaRef.current?.reset();
+  }, []);
+
+  // Now safe to do a conditional render — all hooks have already been called
+  if (currentPage === "about") {
+    return <HowItWorks goBack={() => setCurrentPage("home")} />;
+  }
+
+  const processFile = (file, inputElement = null) => {
+    setErrorMessage("");
     if (file) {
       // Check if the MIME type is NOT jpeg
       if (file.type !== "image/jpeg") {
@@ -100,21 +115,6 @@ function App() {
     startCaptcha();
   };
 
-  const handleRecaptchaVerify = useCallback((token) => {
-    if (token) {
-      setShowCaptcha(false);
-      setCaptchaError("");
-      recaptchaRef.current?.reset();
-      handleConfirmUpload();
-    }
-  }, []);
-
-  const handleRecaptchaExpired = useCallback(() => {
-    setCaptchaError("Verification expired. Please complete the captcha again.");
-    recaptchaRef.current?.reset();
-  }, []);
-
-  // 4. Final action if user says "Yes" (after captcha pass)
   const handleConfirmUpload = async () => {
     setShowModal(false);
     setShowCaptcha(false);
@@ -176,6 +176,13 @@ function App() {
 
   return (
     <div className="landing-container">
+      {/* Navigation Bar */}
+      <nav className="top-nav">
+        <button className="nav-link-btn" onClick={() => setCurrentPage("about")}>
+          How It Works
+        </button>
+      </nav>
+
       <header className="hero">
         <h1 className="name">Deepfake Protection</h1>
         <p className="subtitle">
@@ -202,16 +209,7 @@ function App() {
             />
             <label htmlFor="file-upload" className="upload-label">
               <div className="upload-icon">
-                <svg
-                  width="48"
-                  height="48"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                   <polyline points="17 8 12 3 7 8"></polyline>
                   <line x1="12" y1="3" x2="12" y2="15"></line>

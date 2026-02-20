@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { Shield, Eye, Zap, Lock, ChevronRight } from 'lucide-react';
+import { Shield, Eye, Zap, Lock, ArrowLeft } from 'lucide-react';
+import WhyWeMade from '../WhyWeMadeIt.jsx'
 
-const HowItWorks = () => {
+const HowItWorks = ({ goBack }) => {
   const [activeStep, setActiveStep] = useState(0);
 
   const steps = [
     {
       number: "01",
       title: "Upload Your Image",
-      description: "You select a JPEG image you want to protect from deepfake algorithms.",
-      technical: "FastAPI receives the image file and validates it's a proper JPEG format.",
+      description: "You select an image you want to protect from deepfake algorithms.",
+      technical: "FastAPI receives the image file and validates it's a proper format.",
       icon: Shield
     },
     {
@@ -29,7 +30,7 @@ const HowItWorks = () => {
     {
       number: "04",
       title: "Protected Image Download",
-      description: "You receive a high-quality JPEG (95% quality) that looks identical to your original but is protected from deepfake misuse.",
+      description: "You receive a high-quality image that looks identical to your original but is better protected from deepfake misuse.",
       technical: "The processed image is streamed back as a download with preserved visual quality while maintaining adversarial properties.",
       icon: Lock
     }
@@ -38,13 +39,53 @@ const HowItWorks = () => {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #2a1f3a 100%)',
+      background: 'linear-gradient(135deg, #0d1231 0%, #1a1f39 50%, #1d1628 100%)',
       color: '#e8e9f3',
       fontFamily: '"Space Mono", "Courier New", monospace',
       padding: '80px 20px',
       position: 'relative',
       overflow: 'hidden'
     }}>
+
+      {/* Back Button */}
+      {goBack && (
+        <button
+          onClick={goBack}
+          style={{
+            position: 'fixed',
+            top: '24px',
+            left: '24px',
+            zIndex: 100,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '10px 20px',
+            background: 'rgba(139, 92, 246, 0.15)',
+            border: '1px solid rgba(139, 92, 246, 0.4)',
+            borderRadius: '10px',
+            color: '#a78bfa',
+            fontFamily: '"Space Mono", "Courier New", monospace',
+            fontSize: '13px',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease',
+            backdropFilter: 'blur(10px)',
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.background = 'rgba(139, 92, 246, 0.3)';
+            e.currentTarget.style.borderColor = 'rgba(139, 92, 246, 0.7)';
+            e.currentTarget.style.color = '#ffffff';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.background = 'rgba(139, 92, 246, 0.15)';
+            e.currentTarget.style.borderColor = 'rgba(139, 92, 246, 0.4)';
+            e.currentTarget.style.color = '#a78bfa';
+          }}
+        >
+          <ArrowLeft size={16} />
+          Back to Home
+        </button>
+      )}
+
       {/* Animated background grid */}
       <div style={{
         position: 'absolute',
@@ -110,7 +151,7 @@ const HowItWorks = () => {
         }
       `}</style>
 
-      <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+      <div style={{ maxWidth: '80%', margin: '0 auto', position: 'relative', zIndex: 1 }}>
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '80px' }}>
           <div style={{
@@ -175,13 +216,10 @@ const HowItWorks = () => {
                   <div style={{
                     fontSize: '48px',
                     fontWeight: '700',
-                    background: isActive 
-                      ? 'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%)'
-                      : 'rgba(148, 163, 184, 0.3)',
+                    background: 'linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',
-                    transition: 'all 0.3s ease'
                   }}>
                     {step.number}
                   </div>
@@ -216,7 +254,7 @@ const HowItWorks = () => {
                       justifyContent: 'center',
                       transition: 'all 0.3s ease'
                     }}>
-                      <Icon size={24} color={isActive ? '#ffffff' : '#94a3b8'} />
+                      <Icon size={24} color={isActive ? '#ffffff' : '#ffffff'} />
                     </div>
                     <h3 style={{
                       fontSize: '24px',
@@ -264,121 +302,7 @@ const HowItWorks = () => {
             );
           })}
         </div>
-
-        {/* Key Concepts */}
-        <div style={{
-          background: 'rgba(255, 255, 255, 0.02)',
-          border: '1px solid rgba(255, 255, 255, 0.05)',
-          borderRadius: '16px',
-          padding: '48px',
-          marginBottom: '80px'
-        }}>
-          <h2 style={{
-            fontSize: '32px',
-            fontWeight: '600',
-            marginBottom: '32px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px'
-          }}>
-            <ChevronRight size={32} color="#8b5cf6" />
-            Key Concepts
-          </h2>
-          
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '24px'
-          }}>
-            <div>
-              <h4 style={{
-                color: '#8b5cf6',
-                fontSize: '16px',
-                marginBottom: '12px',
-                fontWeight: '600'
-              }}>
-                Gaussian Noise
-              </h4>
-              <p style={{ fontSize: '14px', color: '#94a3b8', lineHeight: 1.6, margin: 0 }}>
-                Random variations added to pixel values following a bell curve distribution. Imperceptible to humans but disruptive to AI models.
-              </p>
-            </div>
-            
-            <div>
-              <h4 style={{
-                color: '#3b82f6',
-                fontSize: '16px',
-                marginBottom: '12px',
-                fontWeight: '600'
-              }}>
-                Adversarial Examples
-              </h4>
-              <p style={{ fontSize: '14px', color: '#94a3b8', lineHeight: 1.6, margin: 0 }}>
-                Modified inputs designed to fool machine learning models while appearing unchanged to humans.
-              </p>
-            </div>
-            
-            <div>
-              <h4 style={{
-                color: '#8b5cf6',
-                fontSize: '16px',
-                marginBottom: '12px',
-                fontWeight: '600'
-              }}>
-              Feature Extraction Disruption
-              </h4>
-              <p style={{ fontSize: '14px', color: '#94a3b8', lineHeight: 1.6, margin: 0 }}>
-                Deepfake models rely on extracting facial features. Our noise targets these features, causing model confusion and failure.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Technical Stack */}
-        <div style={{ textAlign: 'center' }}>
-          <h3 style={{
-            fontSize: '20px',
-            color: '#64748b',
-            marginBottom: '24px',
-            fontWeight: '400',
-            letterSpacing: '1px'
-          }}>
-            Powered By
-          </h3>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '32px',
-            flexWrap: 'wrap'
-          }}>
-            {['FastAPI', 'PyTorch', 'Python', 'React'].map((tech, i) => (
-              <div
-                key={i}
-                style={{
-                  padding: '12px 24px',
-                  background: 'rgba(139, 92, 246, 0.1)',
-                  border: '1px solid rgba(139, 92, 246, 0.2)',
-                  borderRadius: '8px',
-                  fontSize: '14px',
-                  fontWeight: '600',
-                  color: '#a78bfa',
-                  transition: 'all 0.3s ease',
-                  cursor: 'default'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(139, 92, 246, 0.2)';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(139, 92, 246, 0.1)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              >
-                {tech}
-              </div>
-            ))}
-          </div>
-        </div>
+        <WhyWeMade/>
       </div>
     </div>
   );
