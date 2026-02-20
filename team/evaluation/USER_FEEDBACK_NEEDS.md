@@ -20,17 +20,20 @@ The following are our top three feedback priorities, in order of importance. Eva
 
 ---
 
-## 2. Overall UX Flow — Upload → Process → Download
+## 2. Image Processing Time (Quantitative Measurement)
 
-**Question:** Is the end-to-end flow of uploading an image, waiting for it to be processed, and retrieving the result clear, fast, and frustration-free?
+**Question:** How long does it actually take — in seconds — for the app to process and return a protected image, and does that wait time feel acceptable?
 
-**Why this matters:** We have recently added a side-by-side view, similarity score display, and CAPTCHA verification. We want to know whether these additions help or hurt the experience, and whether the overall flow feels intuitive to a first-time user with no prior explanation.
+**Why this matters:** Processing time is a hard performance metric we can benchmark against user tolerance thresholds. If users are waiting more than ~10–15 seconds without feedback, they may assume the app is broken and abandon it. We need concrete timing data across different evaluators and image sizes to identify whether our backend latency is a usability problem.
 
 **What we'd like you to do:**
-1. Without reading any instructions, attempt to upload a photo and get back a protected version.
-2. Note any point where you felt confused, had to pause, or weren't sure what to do next.
-3. Answer: How many steps did the process feel like it required? Did the CAPTCHA feel necessary or annoying?
-4. Rate your overall satisfaction with the UX flow: 1 (very frustrating) – 5 (smooth and obvious).
+1. Upload a photo and start a stopwatch (phone timer is fine) the moment you click the process/submit button.
+2. Stop the timer when the protected image appears on screen.
+3. Record the exact time in seconds (e.g., 8.4s).
+4. Repeat with a second photo if possible and record that time too.
+5. Answer: At that wait time, did the processing feel fast, acceptable, or too slow?
+
+**Data we're collecting:** Raw processing time in seconds per run, and a 3-point acceptability rating (fast / acceptable / too slow).
 
 ---
 
