@@ -686,6 +686,76 @@ body {
   gap: 12px;
 }
 
+/* ======= Captcha (Upload verification) ======= */
+.captcha-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.captcha-modal {
+  background: #11131a;
+  border: 1px solid #1a1d28;
+  border-radius: 16px;
+  padding: 28px 32px;
+  max-width: 380px;
+  width: 90%;
+  text-align: center;
+}
+
+.captcha-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.captcha-question {
+  margin: 16px 0 12px;
+  font-size: 1.05rem;
+  color: #ccc;
+}
+
+.captcha-input {
+  display: block;
+  width: 100%;
+  max-width: 120px;
+  margin: 0 auto 10px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  background: #1a1d28;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: #e6e6e6;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.captcha-input:focus {
+  outline: none;
+  border-color: #00eaff;
+  box-shadow: 0 0 0 2px rgba(0, 234, 255, 0.2);
+}
+
+.captcha-error {
+  color: #ff6b6b;
+  font-size: 0.9rem;
+  margin: 0 0 12px;
+}
+
+.captcha-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 /* ======= Settings Page ======= */
 .settings-page h1 {
   font-size: 2rem;
