@@ -28,6 +28,7 @@
 | Mon 02/18 | Srish    | Wrote the scrum notes             |
 | Fri 02/20 | John     | Wrote the scrum notes             |
 | Mon 02/23 | Rohil    | Wrote the scrum notes             |
+| Mon 02/23 | Rohil    | Assigned Scrum Master             |
 | Mon 02/23 | Arman    | Assigned Product Owner            |
 | Mon 02/23 | Srish    | Assigned Design Document Coordinator |
 | Mon 02/23 | Anit     | Assigned Testing/QA Coordinator   |
