@@ -29,11 +29,11 @@
 | Fri 02/20 | John     | Wrote the scrum notes             |
 | Mon 02/23 | Rohil    | Wrote the scrum notes             |
 | Mon 02/23 | Arman    | Assigned Product Owner            |
-| Mon 02/23 | Srish    | Assigned Final presentation leader|
+| Mon 02/23 | Srish    | Assigned Design Document Coordinator |
 | Mon 02/23 | Anit     | Assigned Testing/QA Coordinator   |
-| Mon 02/23 | Henry    | Assigned Design Document Coordinator|
+| Mon 02/23 | Henry    | Assigned User Manual Coordinator |
 | Mon 02/23 | Sharanya | Assigned UX Coordinator             |
 | Mon 02/23 | Milad    | Assigned Deployment Document Coordinator|
-| Mon 02/23 | John     | Assigned User Manual Coordinator  |
-| Mon 02/23 | John     | Assigned Led the retro            |
+| Mon 02/23 | John     | Assigned Final presentation leader |
+| Fri 03/06 | John     | Retro 3 leader            |
 
