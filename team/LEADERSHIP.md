@@ -28,9 +28,12 @@
 | Mon 02/18 | Srish    | Wrote the scrum notes             |
 | Fri 02/20 | John     | Wrote the scrum notes             |
 | Mon 02/23 | Rohil    | Wrote the scrum notes             |
-| Wed 02/25 | Srish    | Wrote the scrum notes             |
-| Fri 02/27 | Anit     | Wrote the scrum notes             |
-| Mon 03/02 | Sharanya | Wrote the scrum notes             |
-| Wed 03/04 | Milad    | Wrote the scrum notes             |
-| Fri 03/06 | John     | Wrote the scrum notes             |
+| Mon 02/23 | Arman    | Assigned Product Owner            |
+| Mon 02/23 | Srish    | Assigned Final presentation leader|
+| Mon 02/23 | Anit     | Assigned Testing/QA Coordinator   |
+| Mon 02/23 | Henry    | Assigned Design Document Coordinator|
+| Mon 02/23 | Sharanya | Assigned UX Coordinator             |
+| Mon 02/23 | Milad    | Assigned Deployment Document Coordinator|
+| Mon 02/23 | John     | Assigned User Manual Coordinator  |
+| Mon 02/23 | John     | Assigned Led the retro            |
 
