@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import ExportFormatModal from './ExportFormatModal';
 
 function ComparisonView({
   originalBuffer,
@@ -12,6 +13,7 @@ function ComparisonView({
 }) {
   const [originalUrl, setOriginalUrl] = useState(null);
   const [protectedUrl, setProtectedUrl] = useState(null);
+  const [showFormatModal, setShowFormatModal] = useState(false);
 
   useEffect(() => {
     if (originalBuffer) {
@@ -73,13 +75,20 @@ function ComparisonView({
         <button className="btn btn-primary" onClick={onSaveToLibrary}>
           Save to Library
         </button>
-        <button className="btn btn-secondary" onClick={onExport}>
-          Export
+        <button className="btn btn-secondary" onClick={() => setShowFormatModal(true)}>
+          Export As
         </button>
         <button className="btn btn-secondary" onClick={onProcessAnother}>
           Process Another
         </button>
       </div>
+
+      {showFormatModal && (
+        <ExportFormatModal
+          onConfirm={(fmt) => { setShowFormatModal(false); onExport(fmt); }}
+          onClose={() => setShowFormatModal(false)}
+        />
+      )}
     </div>
   );
 }

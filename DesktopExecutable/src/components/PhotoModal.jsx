@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import ExportFormatModal from './ExportFormatModal';
 
 function PhotoModal({ entry, onClose, onDelete, onExport }) {
   const [imageUrl, setImageUrl] = useState(null);
   const [showOriginal, setShowOriginal] = useState(false);
   const [originalUrl, setOriginalUrl] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [showFormatModal, setShowFormatModal] = useState(false);
 
   useEffect(() => {
     window.electronAPI
@@ -77,13 +79,20 @@ function PhotoModal({ entry, onClose, onDelete, onExport }) {
           >
             {showOriginal ? 'Protected Only' : 'Compare Side-by-Side'}
           </button>
-          <button className="btn btn-primary" onClick={() => onExport(entry.id)}>
-            Export
+          <button className="btn btn-primary" onClick={() => setShowFormatModal(true)}>
+            Export As
           </button>
           <button className="btn btn-danger" onClick={handleDelete}>
             {confirmDelete ? 'Confirm Delete' : 'Delete'}
           </button>
         </div>
+
+        {showFormatModal && (
+          <ExportFormatModal
+            onConfirm={(fmt) => { setShowFormatModal(false); onExport(entry.id, fmt); }}
+            onClose={() => setShowFormatModal(false)}
+          />
+        )}
       </div>
     </div>
   );

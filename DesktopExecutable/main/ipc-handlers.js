@@ -1,5 +1,6 @@
 const { ipcMain, dialog, shell, app } = require('electron');
 const fs = require('fs/promises');
+const { Jimp } = require('jimp');
 const { processImage } = require('./image-processor');
 const PhotoLibrary = require('./photo-library');
 const { readJsonFile, writeJsonFile } = require('./file-utils');
@@ -49,16 +50,22 @@ function registerIpcHandlers() {
     return true;
   });
 
-  ipcMain.handle('library:export', async (_event, id) => {
+  ipcMain.handle('library:export', async (_event, id, format) => {
     const entry = await library.getById(id);
     if (!entry) return false;
 
+    const ext = format === 'image/png' ? 'png' : 'jpg';
+    const baseName = entry.originalFilename.replace(/\.[^.]+$/, '');
+    const filters = format === 'image/png'
+      ? [{ name: 'PNG Image', extensions: ['png'] }]
+      : [{ name: 'JPEG Image', extensions: ['jpg', 'jpeg'] }];
+
     const { filePath } = await dialog.showSaveDialog({
-      defaultPath: `protected_${entry.originalFilename}`,
-      filters: [{ name: 'Images', extensions: ['jpg', 'jpeg'] }],
+      defaultPath: `protected_${baseName}.${ext}`,
+      filters,
     });
     if (filePath) {
-      await library.exportImage(id, filePath);
+      await library.exportImage(id, filePath, format);
       return true;
     }
     return false;
@@ -74,16 +81,25 @@ function registerIpcHandlers() {
   });
 
   // --- File Dialogs ---
-  ipcMain.handle('dialog:showSave', async (_event, defaultName) => {
+  ipcMain.handle('dialog:showSave', async (_event, defaultName, format) => {
+    const filters = format === 'image/png'
+      ? [{ name: 'PNG Image', extensions: ['png'] }]
+      : [{ name: 'JPEG Image', extensions: ['jpg', 'jpeg'] }];
     const { filePath } = await dialog.showSaveDialog({
       defaultPath: defaultName,
-      filters: [{ name: 'Images', extensions: ['jpg', 'jpeg', 'png'] }],
+      filters,
     });
     return filePath || null;
   });
 
-  ipcMain.handle('file:saveBuffer', async (_event, arrayBuffer, filePath) => {
-    await fs.writeFile(filePath, Buffer.from(arrayBuffer));
+  ipcMain.handle('file:saveBuffer', async (_event, arrayBuffer, filePath, format) => {
+    const buf = Buffer.from(arrayBuffer);
+    if (format && format !== 'image/jpeg') {
+      const image = await Jimp.read(buf);
+      await fs.writeFile(filePath, await image.getBuffer(format));
+    } else {
+      await fs.writeFile(filePath, buf);
+    }
     return true;
   });
 

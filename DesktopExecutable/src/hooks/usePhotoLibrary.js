@@ -40,8 +40,8 @@ export function usePhotoLibrary() {
     [refresh]
   );
 
-  const exportImage = useCallback(async (id) => {
-    return await window.electronAPI.libraryExport(id);
+  const exportImage = useCallback(async (id, format) => {
+    return await window.electronAPI.libraryExport(id, format);
   }, []);
 
   const clearAll = useCallback(async () => {
