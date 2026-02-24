@@ -10,16 +10,16 @@ contextBridge.exposeInMainWorld('electronAPI', {
   libraryAdd: (originalBuffer, protectedBuffer, metadata) =>
     ipcRenderer.invoke('library:add', originalBuffer, protectedBuffer, metadata),
   libraryDelete: (id) => ipcRenderer.invoke('library:delete', id),
-  libraryExport: (id) => ipcRenderer.invoke('library:export', id),
+  libraryExport: (id, format) => ipcRenderer.invoke('library:export', id, format),
   libraryClearAll: () => ipcRenderer.invoke('library:clearAll'),
   libraryGetImageDataUrl: (id, type) =>
     ipcRenderer.invoke('library:getImageDataUrl', id, type),
 
   // File dialogs
-  showSaveDialog: (defaultName) =>
-    ipcRenderer.invoke('dialog:showSave', defaultName),
-  saveBufferToFile: (buffer, filePath) =>
-    ipcRenderer.invoke('file:saveBuffer', buffer, filePath),
+  showSaveDialog: (defaultName, format) =>
+    ipcRenderer.invoke('dialog:showSave', defaultName, format),
+  saveBufferToFile: (buffer, filePath, format) =>
+    ipcRenderer.invoke('file:saveBuffer', buffer, filePath, format),
   openInFinder: () => ipcRenderer.invoke('shell:openLibrary'),
 
   // Settings

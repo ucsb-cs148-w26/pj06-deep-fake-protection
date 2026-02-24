@@ -106,10 +106,14 @@ class PhotoLibrary {
     await this._writeMetadata(db);
   }
 
-  async exportImage(id, destPath) {
-    const ext = 'jpg';
-    const src = path.join(this.protectedPath, `${id}.${ext}`);
-    await fs.copyFile(src, destPath);
+  async exportImage(id, destPath, format) {
+    const src = path.join(this.protectedPath, `${id}.jpg`);
+    if (format && format !== 'image/jpeg') {
+      const image = await Jimp.read(src);
+      await fs.writeFile(destPath, await image.getBuffer(format));
+    } else {
+      await fs.copyFile(src, destPath);
+    }
   }
 
   async getImageDataUrl(id, type) {
