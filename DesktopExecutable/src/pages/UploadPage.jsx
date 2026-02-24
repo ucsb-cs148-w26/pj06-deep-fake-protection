@@ -81,13 +81,13 @@ function UploadPage() {
     }
   };
 
-  const handleExport = async () => {
+  const handleExport = async (format) => {
     if (!result) return;
-    const filePath = await window.electronAPI.showSaveDialog(
-      `protected_${file?.name || 'image.jpg'}`
-    );
+    const ext = format === 'image/png' ? 'png' : 'jpg';
+    const baseName = (file?.name || 'image.jpg').replace(/\.[^.]+$/, '');
+    const filePath = await window.electronAPI.showSaveDialog(`protected_${baseName}.${ext}`, format);
     if (filePath) {
-      await window.electronAPI.saveBufferToFile(result.buffer, filePath);
+      await window.electronAPI.saveBufferToFile(result.buffer, filePath, format);
     }
   };
 

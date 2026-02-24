@@ -856,3 +856,23 @@ body {
 .app-content::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+/* Export Format Modal */
+.export-format-modal { min-width: 320px; }
+.format-options { display: flex; gap: 12px; margin: 16px 0; }
+.format-option {
+  flex: 1;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 16px;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.15s, background 0.15s;
+}
+.format-option:hover { border-color: #555; }
+.format-option.selected {
+  border-color: #00eaff;
+  background: rgba(0, 234, 255, 0.08);
+}
+.format-option-name { font-size: 1rem; font-weight: 600; color: #e6e6e6; }
+.format-option-desc { font-size: 0.75rem; color: #666; margin-top: 4px; }
