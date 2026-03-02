@@ -3,6 +3,7 @@ import Sidebar from './components/Sidebar';
 import UploadPage from './pages/UploadPage';
 import LibraryPage from './pages/LibraryPage';
 import SettingsPage from './pages/SettingsPage';
+import InfoPage from './pages/InfoPage';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<UploadPage />} />
           <Route path="/library" element={<LibraryPage />} />
           <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/info" element={<InfoPage />} />
         </Routes>
       </main>
     </div>
