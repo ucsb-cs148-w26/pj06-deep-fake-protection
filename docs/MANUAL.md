@@ -6,7 +6,7 @@
 
 ### 1.1 Purpose of the Product
 Deepfake Protection is a tool that lets you upload a photo and download a visually identical image that has been subtly modified to make it harder for AI systems (deepfake generators, face recognizers, and training pipelines) to use your face.  
-The goal is not to “watermark” your image visually, but to add mathematically designed noise so that AI models learn the wrong features while humans still see your photo as normal.
+The goal is not to “watermark” your image and prevent it from being deepfaked, but rather to add mathematically designed noise so that AI models learn the wrong features while humans still see your photo as normal. Applying the noise to the image essentially "poisons" the AI which trains on it, so the goal is to have a large number of these "poisoned" images which can then effectively break a model training to deepfake on it.
 
 ### 1.2 Intended Audience
 - Individuals who frequently post photos of themselves online (students, creators, influencers).  
@@ -22,17 +22,16 @@ The goal is not to “watermark” your image visually, but to add mathematicall
 - You should see a landing page titled **“Deepfake Protection”** with an upload area in the center.
   
 ### 2.2 Uploading an Image
-1. Prepare a suitable portrait photo of yourself in JPEG (`.jpg`/`.jpeg`) format.  
+1. Prepare a suitable portrait photo of yourself in JPEG (`.jpg`/`.jpeg`) or PNG (`.png`) format.  
 2. On the landing page, either:  
    - Drag and drop your image into the large upload box, **or**  
    - Click the box to open your file picker and choose the image.  
-3. The app will display the selected filename beneath the upload area. If the file is not a JPEG, you will see an error and the file will be rejected.
+3. The app will display the selected filename beneath the upload area. If the file is not an acceptable format, you will see an error and the file will be rejected.
 
 ### 2.3 Confirming Guidelines and CAPTCHA
-1. After a valid file is selected, click **“Process Image”**.  
-2. A confirmation dialog will ask you to verify that your image follows the listed guidelines (e.g., you own the rights to this photo).  
-3. If you confirm, a Google reCAPTCHA widget appears. Follow the on‑screen instructions to prove you are human.  
-4. If reCAPTCHA expires or fails, you will see a message and can try again.
+1. After a valid file is selected which adheres to our posted guidelines, click **“Process Image”**.  
+2. If you confirm, a Google reCAPTCHA widget appears. Follow the on‑screen instructions to prove you are human.  
+3. If reCAPTCHA expires or fails, you will see a message and can try again.
 
 ### 2.4 Downloading the Protected Image
 1. Once the CAPTCHA is completed successfully, the app sends your image to the backend for one‑time processing.  
@@ -81,28 +80,29 @@ The goal is not to “watermark” your image visually, but to add mathematicall
 - CAPTCHA‑gated processing to discourage automated misuse.  
 - Desktop‑only features: adjustable protection levels, offline operation, and a local photo library.
 
-### 4.2 Planned Enhancements (Placeholder)
-- Additional masking strategies tuned to new families of deepfake models.  
+### 4.2 Planned Enhancements
+- Additional masking strategies tuned to new families of deepfake models. Especially considering the rapid development of new adversarial techniques, we have currently designed the product to allow for a "plug and play" development style with which we can add new methods of masking.  
 - More advanced visualization tools (zoom, overlays) to help users understand where perturbations are applied.  
-- Expanded settings for power users (e.g., default protection level, library location).
+- Expanded settings for empowering users (e.g. custom protection levels which rely on PSNR targets).
+- Stronger individual image protections so that it can be made possible to prevent an indivdual image from deepfake attacks as opposed to just poisoning datasets.
 
 ---
 
-## 5. Troubleshooting (Placeholder)
+## 5. Troubleshooting
 
 ### 5.1 Common Issues
 - **“Invalid file type” error:**  
   - Ensure your image is saved as `.jpg` or `.jpeg`. PNGs and other formats are not currently supported.  
 - **Processing seems slow:**  
-  - Try a smaller image file or check your network connection (web app only). Desktop processing runs locally but may take longer on very large images.  
+  - Try a smaller image file or check your network connection (web app only). Desktop processing runs locally but may take longer on very large images. Processing on the app can often vary based on your individual device specs.  
 - **No download appears after processing (web):**  
-  - Check your browser’s download bar or “Downloads” folder; some browsers block automatic downloads and show a small prompt.
+  - Check your browser’s download bar or “Downloads” folder. Also keep in mind that some browsers block automatic downloads and show a small prompt.
 
 ---
 
 ## 6. Safety, Privacy, and Ethics (Pointer)
 
-For a deeper explanation of how we handle data and our ethical assumptions, see `docs/DESIGN.md` (Privacy and Ethics section).  
+Our biggest goal with this product is to empower individual privacy! Thus, we do our best to limit any sources of privacy being infringed. For instance, we never store any of your images in our own storage, so your data is safe with you. For a deeper explanation of how we handle data and our ethical assumptions, see `docs/DESIGN.md` (Privacy and Ethics section).  
 At a high level:
 - The backend processes uploads in memory and does not store images.  
 - The desktop app keeps all data on your own device.  
