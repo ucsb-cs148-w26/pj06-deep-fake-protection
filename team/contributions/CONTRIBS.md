@@ -30,3 +30,16 @@ I also created a React component for our about page. I wrote about how we never 
 I led my team’s first retro.
 I am the user manual coordinator, and I have overseen the creation of our team’s user manual.
 I have served as a sprint leader and documented my team’s plans and progress
+
+
+## Arman Sajjadian:
+
+### Code Contributions:
+In the early stages of the project, I researched protection algorithms to determine what masking strategies could effectively prevent deepfake model training on user images. This led me to implement a Projected Gradient Descent (PGD) adversarial attack as our core masking method (Pull Request #47, Masks/PGD.py), along with a Gaussian noise mask as a complementary approach (Pull Request #86, Masks/Gauss.py). I also wrote backend tests for the masking pipeline (Pull Request #85).
+
+When our Vercel builds began failing due to memory constraints from heavy ML dependencies, I refactored the codebase to remove PyTorch and other bloated libraries, which stabilized both the web and desktop applications (Pull Request #92).
+
+For the desktop executable, I implemented a similarity score panel that computes PSNR and a visual similarity percentage after masking, giving users a quantitative measure of image degradation (Pull Request #125). I also added PNG export format support and a format selection modal so users can choose how their protected images are saved (Pull Request #140).
+
+### Non-Coding Roles:
+As Project Owner, I was responsible for the initial conceptualization of the deepfake protection idea and managing the overall project trajectory to ensure all weekly lab criteria were met. I led several scrum meetings and retrospectives, maintaining detailed notes on team progress. I also frequently served as PR reviewer and merger for teammates’ contributions throughout the project.
