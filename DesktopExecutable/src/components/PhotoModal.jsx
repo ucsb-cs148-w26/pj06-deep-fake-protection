@@ -77,6 +77,12 @@ function PhotoModal({ entry, onClose, onDelete, onExport }) {
           >
             {showOriginal ? 'Protected Only' : 'Compare Side-by-Side'}
           </button>
+          <span className="info-btn-wrapper">
+            <button className="info-btn" aria-label="Compare info">i</button>
+            <span className="info-tooltip">
+              View the original and protected images side by side to see how much (or how little) the protection changed your photo. The differences are designed to be invisible to the human eye.
+            </span>
+          </span>
           <button className="btn btn-primary" onClick={() => onExport(entry.id)}>
             Export
           </button>

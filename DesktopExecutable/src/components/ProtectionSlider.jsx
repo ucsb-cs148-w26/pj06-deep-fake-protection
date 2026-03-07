@@ -12,7 +12,15 @@ function ProtectionSlider({ value, onChange }) {
   return (
     <div className="protection-slider">
       <div className="protection-header">
-        <span className="protection-label">Protection Level</span>
+        <span className="protection-label">
+          Protection Level
+          <span className="info-btn-wrapper">
+            <button className="info-btn" aria-label="Protection level info">i</button>
+            <span className="info-tooltip">
+              This slider controls how aggressively invisible noise patterns are added to your photo to disrupt AI deepfake models. Higher levels offer stronger protection but may introduce slightly visible artifacts.
+            </span>
+          </span>
+        </span>
         <span className="protection-badge">
           Level {value} &mdash; {level.name}
         </span>

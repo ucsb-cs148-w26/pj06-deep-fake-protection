@@ -686,6 +686,76 @@ body {
   gap: 12px;
 }
 
+/* ======= Captcha (Upload verification) ======= */
+.captcha-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.captcha-modal {
+  background: #11131a;
+  border: 1px solid #1a1d28;
+  border-radius: 16px;
+  padding: 28px 32px;
+  max-width: 380px;
+  width: 90%;
+  text-align: center;
+}
+
+.captcha-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.captcha-question {
+  margin: 16px 0 12px;
+  font-size: 1.05rem;
+  color: #ccc;
+}
+
+.captcha-input {
+  display: block;
+  width: 100%;
+  max-width: 120px;
+  margin: 0 auto 10px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  background: #1a1d28;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: #e6e6e6;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.captcha-input:focus {
+  outline: none;
+  border-color: #00eaff;
+  box-shadow: 0 0 0 2px rgba(0, 234, 255, 0.2);
+}
+
+.captcha-error {
+  color: #ff6b6b;
+  font-size: 0.9rem;
+  margin: 0 0 12px;
+}
+
+.captcha-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 /* ======= Settings Page ======= */
 .settings-page h1 {
   font-size: 2rem;
@@ -785,4 +855,155 @@ body {
 
 .app-content::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+/* ======= Info Button & Tooltip ======= */
+.info-btn-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.info-btn {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid #555;
+  background: transparent;
+  color: #888;
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-style: italic;
+  font-family: Georgia, 'Times New Roman', serif;
+  cursor: help;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  padding: 0;
+  transition: all 0.15s ease;
+  line-height: 1;
+}
+
+.info-btn:hover {
+  border-color: #00eaff;
+  color: #00eaff;
+}
+
+.info-tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1d28;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.8rem;
+  color: #ccc;
+  line-height: 1.5;
+  width: 280px;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
+  z-index: 100;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.info-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #333;
+}
+
+.info-btn-wrapper:hover .info-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ======= Info Page ======= */
+.info-page {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.info-page h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.info-page .info-subtitle {
+  color: #888;
+  margin-bottom: 32px;
+  font-size: 1rem;
+}
+
+.info-section {
+  background: #11131a;
+  border: 1px solid #1a1d28;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+
+.info-section-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #00eaff;
+  margin-bottom: 10px;
+}
+
+.info-section p {
+  font-size: 0.88rem;
+  color: #aaa;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.info-section p:last-child {
+  margin-bottom: 0;
+}
+
+.info-levels-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+}
+
+.info-levels-list li {
+  padding: 6px 0;
+  font-size: 0.85rem;
+  color: #aaa;
+  border-bottom: 1px solid #1a1d28;
+}
+
+.info-levels-list li:last-child {
+  border-bottom: none;
+}
+
+.info-level-name {
+  font-weight: 600;
+  color: #00eaff;
+  margin-right: 6px;
+}
+
+.info-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+.info-tip-bullet {
+  color: #00eaff;
+  font-weight: 700;
+  flex-shrink: 0;
 }
