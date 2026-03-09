@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Shield, Eye, Zap, Lock, ArrowLeft } from 'lucide-react';
 import WhyWeMade from '../WhyWeMadeIt.jsx'
+import About from '../AboutPage.jsx'
 
 const HowItWorks = ({ goBack }) => {
   const [activeStep, setActiveStep] = useState(0);
@@ -303,6 +304,7 @@ const HowItWorks = ({ goBack }) => {
           })}
         </div>
         <WhyWeMade/>
+        <About/>
       </div>
     </div>
   );
