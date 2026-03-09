@@ -43,9 +43,10 @@ The goal is not to “watermark” your image and prevent it from being deepfake
 ## 3. Desktop Application
 
 ### 3.1 Installation and Launch
-1. Download the desktop installer for your operating system (link and packaging details will be finalized by release).  
-2. Run the installer and follow the standard OS prompts.  
-3. Open the **Deepfake Protection** app from your Applications / Start Menu.
+1. Clone the Github repository: git clone git@github.com:ucsb-cs148-w26/pj06-deep-fake-protection.git
+2. Navigate to the DesktopExecutable Library: cd DesktopExecutable
+3. Install the node packages: npm install
+4. Run the application: npm run electron:dev
 
 ### 3.2 Uploading an Image
 1. On the **“Protect Your Image”** page, click the upload area or the “Select an image” button.  
