@@ -23,14 +23,14 @@ function App() {
     setShowCaptcha(true);
   }, []);
 
-  const handleRecaptchaVerify = useCallback((token) => {
+  const handleRecaptchaVerify = (token) => {
     if (token) {
       setShowCaptcha(false);
       setCaptchaError("");
       recaptchaRef.current?.reset();
       handleConfirmUpload();
     }
-  }, []);
+  };
 
   const handleRecaptchaExpired = useCallback(() => {
     setCaptchaError("Verification expired. Please complete the captcha again.");
@@ -130,7 +130,8 @@ function App() {
       formData.append('file', selectedFile);
       
       // Send to FastAPI backend
-      const response = await fetch('https://pj06-deep-fake-protection.onrender.com/process-image', {
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
+      const response = await fetch(`${backendUrl}/process-image`, {
         method: 'POST',
         body: formData,
       });

@@ -1,8 +1,5 @@
 fastapi
 uvicorn[standard]
 python-multipart
-torch
-torchvision
-torchattacks
+numpy
 pillow
-pytest
