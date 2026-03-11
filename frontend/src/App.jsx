@@ -1,40 +1,52 @@
 import "./App.css";
-import { useState, useCallback, useRef } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
+import { useState, useCallback } from "react";
 import UploadGuidelines from "../FileUploadGuidelines";
 import HowItWorks from "./HowItWorks.jsx";
 
-const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
+const API_BASE = import.meta.env.VITE_API_URL || "https://pj06-deep-fake-protection.onrender.com";
 
 function App() {
   const [currentPage, setCurrentPage] = useState("home");
   const [selectedFile, setSelectedFile] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [showCaptcha, setShowCaptcha] = useState(false);
+  const [captchaNum1, setCaptchaNum1] = useState(0);
+  const [captchaNum2, setCaptchaNum2] = useState(0);
+  const [captchaInput, setCaptchaInput] = useState("");
   const [captchaError, setCaptchaError] = useState("");
   const [fileName, setFileName] = useState("");
   const [isDragOver, setIsDragOver] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const recaptchaRef = useRef(null);
 
   const startCaptcha = useCallback(() => {
+    setCaptchaNum1(Math.floor(Math.random() * 10) + 1);
+    setCaptchaNum2(Math.floor(Math.random() * 10) + 1);
+    setCaptchaInput("");
     setCaptchaError("");
     setShowCaptcha(true);
   }, []);
 
-  const handleRecaptchaVerify = useCallback((token) => {
-    if (token) {
+  const handleCaptchaVerify = useCallback(() => {
+    const expected = captchaNum1 + captchaNum2;
+    const answer = parseInt(captchaInput.trim(), 10);
+    if (Number.isNaN(answer)) {
+      setCaptchaError("Please enter a number.");
+      return;
+    }
+    if (answer === expected) {
       setShowCaptcha(false);
       setCaptchaError("");
-      recaptchaRef.current?.reset();
       handleConfirmUpload();
+    } else {
+      setCaptchaError("Incorrect. Please try again.");
     }
-  }, []);
+  }, [captchaNum1, captchaNum2, captchaInput]);
 
-  const handleRecaptchaExpired = useCallback(() => {
-    setCaptchaError("Verification expired. Please complete the captcha again.");
-    recaptchaRef.current?.reset();
+  const handleCloseCaptcha = useCallback(() => {
+    setShowCaptcha(false);
+    setCaptchaError("");
+    setCaptchaInput("");
   }, []);
 
   // Now safe to do a conditional render — all hooks have already been called
@@ -130,7 +142,7 @@ function App() {
       formData.append('file', selectedFile);
       
       // Send to FastAPI backend
-      const response = await fetch('https://pj06-deep-fake-protection.onrender.com/process-image', {
+      const response = await fetch(`${API_BASE}/process-image`, {
         method: 'POST',
         body: formData,
       });
@@ -171,7 +183,7 @@ function App() {
     setShowModal(false);
     setShowCaptcha(false);
     setCaptchaError("");
-    recaptchaRef.current?.reset();
+    setCaptchaInput("");
   };
 
   return (
@@ -261,20 +273,23 @@ function App() {
             {showCaptcha ? (
               <>
                 <h3>Verify you're human</h3>
-                <p className="captcha-hint">Complete the captcha below to continue.</p>
-                <div className="recaptcha-wrapper">
-                  <ReCAPTCHA
-                    ref={recaptchaRef}
-                    sitekey={RECAPTCHA_SITE_KEY}
-                    onChange={handleRecaptchaVerify}
-                    onExpired={handleRecaptchaExpired}
-                    theme="light"
-                  />
-                </div>
+                <p className="captcha-hint">What is {captchaNum1} + {captchaNum2}?</p>
+                <input
+                  type="number"
+                  className="captcha-input"
+                  value={captchaInput}
+                  onChange={(e) => setCaptchaInput(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleCaptchaVerify()}
+                  placeholder="Enter answer"
+                  autoFocus
+                />
                 {captchaError && <p className="captcha-error">{captchaError}</p>}
                 <div className="modal-actions">
-                  <button className="modal-btn cancel" onClick={handleCloseModal}>
+                  <button type="button" className="modal-btn cancel" onClick={handleCloseModal}>
                     Cancel
+                  </button>
+                  <button type="button" className="modal-btn confirm" onClick={handleCaptchaVerify}>
+                    Verify & Upload
                   </button>
                 </div>
               </>
