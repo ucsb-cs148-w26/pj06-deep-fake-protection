@@ -311,6 +311,19 @@ body::-webkit-scrollbar {
   color: #555;
 }
 
+.captcha-input {
+  display: block;
+  width: 100%;
+  max-width: 120px;
+  margin: 10px auto 15px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
 .recaptcha-wrapper {
   display: flex;
   justify-content: center;

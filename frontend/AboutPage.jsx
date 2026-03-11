@@ -35,7 +35,8 @@ const About = () => {
           algorithm is adversarial, designed to corrupt new datasets for
           future deepfake models.
         </p>
-        </section>
+      </section>
+    </section>
   );
 };
 
