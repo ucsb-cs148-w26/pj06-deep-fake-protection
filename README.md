@@ -85,7 +85,7 @@ How does your app allow them to accomplish their goal?
 Our app will include a masking feature that alters the user's image in a way that is undetectable to the human eye, but throws off a deepfake algorithm.
 
 
-# Installation Prerequisites
+## Installation Prerequisites
 
 A browser and search engine of choice
 
@@ -93,7 +93,7 @@ Dependencies
 
 React for the frontend, FastAPI for the backend API, PyTorch and `torchattacks` for generating adversarial noise on images, and Vercel (or similar) to deploy our app.
 
-Installation Steps
+## Installation Steps
 
 TODO: Describe the installation process (making sure you give complete instructions to get your project going from scratch). Instructions need to be such that a user can just copy/paste the commands to get things set up and running. Note that with the use of GitHub Actions, these instructions can eventually be fully automated (e.g.,\ with act, you can run GitHub Actions locally).
 
