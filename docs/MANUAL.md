@@ -1,4 +1,4 @@
-# Deepfake Protection User Manual (Draft)
+# Deepfake Protection User Manual
 
 ---
 
@@ -22,7 +22,7 @@ The goal is not to “watermark” your image and prevent it from being deepfake
 - You should see a landing page titled **“Deepfake Protection”** with an upload area in the center.
   
 ### 2.2 Uploading an Image
-1. Prepare a suitable portrait photo of yourself in JPEG (`.jpg`/`.jpeg`) or PNG (`.png`) format.  
+1. Prepare a suitable portrait photo of yourself in JPEG (`.jpg`/`.jpeg`) or PNG (`.png`) format which adheres to the posted guidelines.  
 2. On the landing page, either:  
    - Drag and drop your image into the large upload box, **or**  
    - Click the box to open your file picker and choose the image.  
@@ -43,32 +43,33 @@ The goal is not to “watermark” your image and prevent it from being deepfake
 ## 3. Desktop Application
 
 ### 3.1 Installation and Launch
-1. Clone the Github repository: git clone git@github.com:ucsb-cs148-w26/pj06-deep-fake-protection.git
-2. Navigate to the DesktopExecutable Library: cd DesktopExecutable
-3. Install the node packages: npm install
-4. Run the application: npm run electron:dev
+1. Open a Command Prompt or Terminal application
+2. Clone this Github repository by running: `git clone git@github.com:ucsb-cs148-w26/pj06-deep-fake-protection.git`
+3. Navigate to the DesktopExecutable Library by running: `cd DesktopExecutable`
+4. Install the node packages by running: `npm install`
+5. Run the application using: `npm run electron:dev`
 
 ### 3.2 Uploading an Image
-1. On the **“Protect Your Image”** page, click the upload area or the “Select an image” button.  
+1. On the **“Home”** page, click the upload area or the “Select an image” button.  
 2. Choose the image you want to protect from your local files.  
 3. The filename will appear in the UI once the app has loaded the image into memory.
 
 ### 3.3 Choosing a Protection Level
 1. Use the **Protection Level** slider (1–5) to choose how aggressively you want the app to perturb your image.  
 2. Lower levels aim for extremely subtle changes; higher levels apply more aggressive, AI‑resistant perturbations that may very slightly change texture if inspected closely.  
-3. The default level is 3, which we recommend for most users.
+3. The default level is 3, which we recommend for most users as it provides a fair balance.
 
-### 3.4 CAPTCHA and Processing
+### 3.4 More details on the CAPTCHA and Processing
 1. Click **“Apply Protection”** to start.  
 2. A small math CAPTCHA pops up (for example, “What is 7 + 3?”). Enter the answer and click **“Verify & Apply Protection”**.  
 3. If you answer incorrectly, you will see an error and can try again.  
-4. After a correct answer, the app shows a **Processing** screen until your image is finished.
+4. After a correct answer, the app shows a **Processing** screen until your image is ready.
 
 ### 3.5 Viewing Results, Exporting, and Library
 1. When processing is complete, you will see a **side‑by‑side comparison** of your original and protected images.  
 2. The app also displays numeric metrics such as **PSNR** and **Similarity %** to indicate how visually close the protected image is to the original.  
 3. Use the **Export** button to save the protected image to a location of your choice.  
-4. Optionally, click **Save to Library** to store both original and protected versions in the app’s local photo library for quick access later.  
+4. Optionally, click **Save to Library** to store both original and protected versions in the app’s local photo library for quick access later. These images will still be stored on your device for file access if you would like as well.  
 5. Use **Process Another Image** to go back and start again with a new file.
 
 ---
@@ -79,7 +80,7 @@ The goal is not to “watermark” your image and prevent it from being deepfake
 - One‑click image protection via web or desktop.  
 - AI‑resistant masking that aims to preserve human‑visible quality.  
 - CAPTCHA‑gated processing to discourage automated misuse.  
-- Desktop‑only features: adjustable protection levels, offline operation, and a local photo library.
+- App‑only features: adjustable protection levels, offline operation, and a local photo library.
 
 ### 4.2 Planned Enhancements
 - Additional masking strategies tuned to new families of deepfake models. Especially considering the rapid development of new adversarial techniques, we have currently designed the product to allow for a "plug and play" development style with which we can add new methods of masking.  
@@ -93,15 +94,15 @@ The goal is not to “watermark” your image and prevent it from being deepfake
 
 ### 5.1 Common Issues
 - **“Invalid file type” error:**  
-  - Ensure your image is saved as `.jpg` or `.jpeg`. PNGs and other formats are not currently supported.  
+  - Ensure your image is saved as an accepted format.  
 - **Processing seems slow:**  
   - Try a smaller image file or check your network connection (web app only). Desktop processing runs locally but may take longer on very large images. Processing on the app can often vary based on your individual device specs.  
 - **No download appears after processing (web):**  
-  - Check your browser’s download bar or “Downloads” folder. Also keep in mind that some browsers block automatic downloads and show a small prompt.
+  - Check your browser’s download bar or “Downloads” folder. Also keep in mind that some browsers block automatic downloads and show a small prompt. In that case, allow downloads or disable the preventative settings.
 
 ---
 
-## 6. Safety, Privacy, and Ethics (Pointer)
+## 6. Safety, Privacy, and Ethics
 
 Our biggest goal with this product is to empower individual privacy! Thus, we do our best to limit any sources of privacy being infringed. For instance, we never store any of your images in our own storage, so your data is safe with you. For a deeper explanation of how we handle data and our ethical assumptions, see `docs/DESIGN.md` (Privacy and Ethics section).  
 At a high level:
