@@ -30,8 +30,8 @@ The goal is not to “watermark” your image and prevent it from being deepfake
 
 ### 2.3 Confirming Guidelines and CAPTCHA
 1. After a valid file is selected which adheres to our posted guidelines, click **“Process Image”**.  
-2. If you confirm, a Google reCAPTCHA widget appears. Follow the on‑screen instructions to prove you are human.  
-3. If reCAPTCHA expires or fails, you will see a message and can try again.
+2. If you confirm, an arithmetic CAPTCHA widget appears. Follow the on‑screen instructions to prove you are human.  
+3. If the CAPTCHA expires or fails, you will see a message and can try again.
 
 ### 2.4 Downloading the Protected Image
 1. Once the CAPTCHA is completed successfully, the app sends your image to the backend for one‑time processing.  
