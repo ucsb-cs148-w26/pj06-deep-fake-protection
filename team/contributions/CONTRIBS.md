@@ -42,15 +42,15 @@ As Project Owner, I was responsible for the initial conceptualization of the dee
 
 ### Code Contributions
 
-At the start of the course, when our team was still making a web application, I created React components for our front end. I wrote guidelines for users to follow when submitting their images.
+At the start of the course, when our team was still making a web application, I created React components for our front end. I wrote guidelines for users to follow when submitting their images. I ensured that our frontend connected seamlessly with the other components built by other team members.
 
-When we pivoted to a desktop executable, I pair-programmed with Milad on creating the desktop executable for macOS. Specifically, I created a database that stores the user's previously masked images in our app (PR #120).
+When we pivoted to a desktop executable, I pair-programmed with Milad to create the desktop executable for macOS. Specifically, I created a database that stores the user's previously masked images in our app (PR #120).
 
-I also created a React component for our About page. I wrote about how we never store the user's images — it is up to the user to decide whether they want their images stored locally on their machine. I also explained how our app works: it does not prevent individual images from being deepfaked, but rather adds adversarial noise to images which will throw off new deepfake models when they are trained on our poisoned images. We hope that if enough people start using our app, there will be enough poisoned data on the internet that it will be very hard to train new models.
+I also created a React component for our About page. I wrote about how we never store the user's images; it is up to the user to decide whether they want their images stored locally on their machine. I also explained how our app works: it does not prevent individual images from being deepfaked, but rather adds adversarial noise to images, which will throw off new deepfake models when they are trained on our poisoned images. We hope that if enough people start using our app, there will be enough poisoned data on the internet that it will be very hard to train new models.
 
 ### Non-Coding Roles
 
-I led my team's first retrospective. I am the User Manual Coordinator and have overseen the creation of our team's user manual. I have also served as a sprint leader and documented my team's plans and progress.
+I led my team's first retrospective. I led an important Start/Stop/Continue retro during the start of our project, which set us up for success for the rest of the quarter. Also, I am the User Manual Coordinator and have overseen the creation of our team's user manual. This was a vital component of our project and required significant effort. I have also served as a sprint leader and documented my team's plans and progress.
 
 ---
 
